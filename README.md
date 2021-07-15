@@ -10,4 +10,4 @@ shaped to tackle an environmental problem.
 regarding concerned environmental data. 
 
 ## Result
-![Result]("https://github.com/RIC1903/Environmental-Decision-Support-System/blob/main/sample.png")
+![Result]("https://github.com/RIC1903/Environmental-Decision-Support-System/blob/main/sample.PNG")
