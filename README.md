@@ -9,4 +9,5 @@ shaped to tackle an environmental problem.
 3. Activists, media and information outlets who shall use the system to support projections
 regarding concerned environmental data. 
 
-![Result]("https://github.com/RIC1903/Environmental-Decision-Support-System/capture.jpg")
+##Result
+![Result]("https://github.com/RIC1903/Environmental-Decision-Support-System/blob/master/sample.jpg")
