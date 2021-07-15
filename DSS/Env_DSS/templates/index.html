@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var counter = 2;
+
+    $('#addButton').live('click', function() {
+
+        $('<p><input class="textbox1" type="text" id="sign_symptom_name_' + counter + '" size="22" name="sign_symptom_name_' + counter + '" value="" placeholder="Sign or Symptom Name" /> <input class="textbox2" type="text" id="sign_symptom_value_' + counter + '" size="20" name="sign_symptom_value_' + counter + '" value="" placeholder="Sign or Symptom Value" /> <a href="#" id="rmSignSymptom">Remove</a></p>').appendTo("#inDiv");
+        counter++;
+        return false
+     });
+
+    $('#rmSignSymptom').live('click', function() {
+        if( counter > 2 ) {
+                $(this).parent('p').remove();
+                counter--;
+        }
+        return false;
+    });
+
+    $("#diagnoseButton").click(function() {
+        var o = {}
+        for (i = 1; i < counter; i++) {
+            o[$("#sign_symptom_name_" + i).val()] = $("#sign_symptom_value_" + i).val()
+        }
+
+         $.ajax({
+            type: "GET",
+            url: $SCRIPT_ROOT + "/diagnose/",
+            contentType: "application/json; charset=utf-8",
+            data: o,
+            success: function(data) {
+                $('#diagTable').empty();
+                var diag = data.result;
+                $('<tr> <td colspan=2>Diagnoses:</td></tr>').appendTo('#diagTable');
+                for (var i = 0; i < diag.length; i++) {
+                    $('<tr><td>' + diag[i][0] + '</td><td>' + diag[i][1] + '</td></tr>').appendTo('#diagTable');
+                };
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('#diagTable').empty();
+                alert(errorThrown);
+            }
+        });
+    });
+
+});
+</script>
+
+<body>
+<h1>Enviromental Decision Support System</h1><br />
+
+<input class='button1' type='button' value='Add Environmental Indicator' id='addButton'>
+<input class='button2' type="button" value="Diagnose" id="diagnoseButton">
+
+<form id="chart">
+<div id="inDiv">
+    <p><input type="text" class="textbox1" name="sign_symptom_name_1" size="22" id="sign_symptom_name_1" value="" placeholder="Environmental Indicator" /> <input class="textbox2" type="text" id="sign_symptom_value_1" size="20" name="sign_symptom_value_1" value="" placeholder="Sign or Weightage" /> <a href="#" id="rmSignSymptom">Remove</a></p>
+</div>
+</form>
+
+
+<table id="diagTable" class='CSSTableGenerator'>
+</table>
+
+{% endblock %}
+
+</body>
